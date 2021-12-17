@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    var word = document.getElementById('word').innerHTML;
+    var remainingTries = 9;
+    console.log(word);
+    var underW = "";
+    for (i = 0; i < word.length; i++) {
+        underW += "_"
+    }
+    var under = document.createElement('p');
+    under.setAttribute("id", "answer");
+    under.setAttribute("style","letter-spacing:10px");
+    under.innerHTML = underW;
+
+    var pTries = document.createElement('p');
+    pTries.setAttribute("id", "tries");
+    pTries.innerHTML = 'il vous reste 9 essais';
+
+
+    document.body.appendChild(under);
+
+    var inputLetter = document.createElement("input");
+    inputLetter.setAttribute("id", "letter");
+    var confirmB = document.createElement("button");
+    confirmB.innerHTML = "confirm";
+    confirmB.setAttribute("id", "confirmButton");
+
+    document.body.appendChild(inputLetter);
+    document.body.appendChild(confirmB);
+    document.body.appendChild(pTries);
+
+    confirmB.setAttribute("onclick", "checkWord()");
+
+    function checkWord() {
+        var guess = inputLetter.value;
+        var test = false;
+        var newWord = word;
+        var partialWord = under.innerHTML;
+        var replacementString = '';
+
+        while (newWord.includes(guess) && guess != '') {
+            replacementString = '';
+            test = true;
+            var index = newWord.indexOf(guess);
+            console.log(index);
+            for (i = 0; i < guess.length; i++) {
+                newWord = setCharAt(newWord, index + i, '*');
+                partialWord = setCharAt(partialWord, index + i, guess[i]);
+            }
+
+            console.log('partialword = ' + partialWord);
+
+            document.getElementById('answer').innerHTML = partialWord;
+            console.log('newword = ' + newWord);
+        }
+
+        if(!test){
+            remainingTries -=1;
+            pTries.innerHTML = 'il vous reste '+ remainingTries +' essais';
+        }
+
+        if (word == partialWord){
+            alert("gagné!");
+        }
+
+
+        console.log('il vous reste '+ remainingTries + ' essais' );
+
+        // console.log(guess);
+    }
+
+    function setCharAt(str, index, chr) {
+        if (index > str.length - 1) return str;
+        return str.substring(0, index) + chr + str.substring(index + 1);
+    }
+
+</script>
