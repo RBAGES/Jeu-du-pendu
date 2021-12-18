@@ -7,7 +7,9 @@ exports.randomWord = function(){
         if (err) throw err;
         return data;    
     });
-    const listeMots = dictionnaire.toLowerCase().split(',');
+
+    var reg = '[^a-zA-Zçéèëïôê]+';
+    const listeMots = dictionnaire.toLowerCase().split(new RegExp(reg));
     let nombreDeMots = listeMots.length;
     let nombreAleatoire = Math.floor(Math.random() * nombreDeMots);
     let motAleatoire = listeMots[nombreAleatoire];

@@ -1,5 +1,5 @@
 
-<script type="text/javascript">
+    exports.contentScript = function(){
     var word = document.getElementById('word').innerHTML;
     var usedWords = new Array();
     var remainingTries = 9;
@@ -108,4 +108,4 @@
         return str.substring(0, index) + chr + str.substring(index + 1);
     }
 
-</script>
+}
